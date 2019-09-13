@@ -20,6 +20,7 @@ export default new Vuex.Store({
   state: {
     user: {},
     homeComp: [],
+    profileComp: {},
     posts: [],
     userSearchResults: []
   },
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     setHomeComp(state, homecomp) {
       state.homeComp = homecomp
     },
+    setProfileComp(state, profileComp) {
+      state.profileComp = profileComp
+    },
     setPosts(state, posts) {
       state.posts = posts
     },
@@ -41,7 +45,6 @@ export default new Vuex.Store({
   actions: {
     //#region -- AUTH STUFF --
     async register({ commit, dispatch }, creds) {
-      debugger
       try {
         let user = await AuthService.Register(creds)
         commit('setUser', user)
@@ -93,7 +96,24 @@ export default new Vuex.Store({
       } catch (error) {
 
       }
+    },
+    async getProfileComp({ commit, dispatch }) {
+      try {
+        let res = await _api.get('users')
+        commit('setProfileComp', res.data)
+      } catch (error) {
+
+      }
+    },
+    async getProfileById({ commit, dispatch }, profileComp) {
+      try {
+        let res = await _api.get(`/posts/${profileComp.authorId._id}`)
+        commit('setProfileComp', res.data)
+      } catch (error) {
+        console.error(error)
+      }
     }
+
     //#endregion
 
 
