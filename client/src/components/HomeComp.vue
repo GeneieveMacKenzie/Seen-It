@@ -1,6 +1,6 @@
 <template>
   <div class="homecomp col-6 border rounded">
-    <h2>{{homeCompProp.authorId.name}}</h2>
+    <router-link to="/profile" class='userProfile'>{{homeCompProp.authorId.name}}</router-link>
     <h2>{{homeCompProp.title}}</h2>
     <h4>{{homeCompProp.body}}</h4>
   </div>
@@ -21,13 +21,9 @@
       //   },
     },
     methods: {
-      // getHomeComp() {
-      //   viewHomeComp()
-      //   this.$router.push({
-      //     name: 'homecomp',
-      //     params: { homecomp: this.homeCompProp._id }
-      //   })
-      // }
+      viewUserProfile() {
+        this.$router.push({ name: 'profilecomp', params: { userProfileId: this.authorId._id } })
+      }
     }
 
   }

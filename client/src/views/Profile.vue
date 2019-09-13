@@ -3,12 +3,12 @@
     <div class="container">
       <div class="row">
 
-        <h1>Seen It</h1>
+        <h1>User Profile</h1>
 
 
       </div>
       <div class="row">
-        <HomeComp v-for="home in homeComp" :homeCompProp="home" :key="home._id" />
+        <ProfileComp v-for="profile in profileComp" :profileCompProp="profile" :key="profile._id" />
         <div class="card" style="width: 18rem;">
 
           <div class="card-body">
@@ -27,22 +27,22 @@
 </template>
 
 <script>
-  import HomeComp from '@/components/HomeComp.vue'
+  import ProfileComp from '@/components/ProfileComp.vue'
   export default {
-    name: "home",
+    name: "profile",
     components: {
-      HomeComp
+      ProfileComp
     },
     data() {
       return {};
     },
     mounted() {
 
-      this.$store.dispatch("getHomeComp")
+      this.$store.dispatch("getProfileComp")
     },
     computed: {
-      homeComp() {
-        return this.$store.state.homeComp;
+      profileComp() {
+        return this.$store.state.profileComp;
       }
     },
     methods: {}
