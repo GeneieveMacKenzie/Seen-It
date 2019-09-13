@@ -15,15 +15,21 @@ let _api = Axios.create({
   withCredentials: true
 })
 
+
 export default new Vuex.Store({
   state: {
     user: {},
+    homeComp: [],
     posts: [],
     userSearchResults: []
   },
   mutations: {
+
     setUser(state, user) {
       state.user = user
+    },
+    setHomeComp(state, homecomp) {
+      state.homeComp = homecomp
     },
     setPosts(state, posts) {
       state.posts = posts
@@ -35,6 +41,7 @@ export default new Vuex.Store({
   actions: {
     //#region -- AUTH STUFF --
     async register({ commit, dispatch }, creds) {
+      debugger
       try {
         let user = await AuthService.Register(creds)
         commit('setUser', user)
@@ -75,11 +82,18 @@ export default new Vuex.Store({
         //TODO handle this catch
       }
 
-    }
+    },
     //#endregion
 
     //#region -- POSTS --
+    async getHomeComp({ commit, dispatch }) {
+      try {
+        let res = await _api.get('posts')
+        commit('setHomeComp', res.data)
+      } catch (error) {
 
+      }
+    }
     //#endregion
 
 
