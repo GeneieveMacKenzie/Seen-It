@@ -32,7 +32,7 @@ export default class CommentController {
 
   async create(req, res, next) {
     try {
-      // console.log('create blog', req.session.uid, req.originalUrl, req.method)
+      // console.log('create comment', req.session.uid, req.originalUrl, req.method)
       console.log("THE BODY", req.body)
       req.body.author = req.session.uid
       let data = await _commentService.create(req.body)
@@ -45,7 +45,7 @@ export default class CommentController {
 
   async edit(req, res, next) {
     try {
-      // console.log('edit blog', req.params.id, req.session.uid, req.originalUrl, req.method)
+      // console.log('edit comment', req.params.id, req.session.uid, req.originalUrl, req.method)
       let data = await _commentService.findOneAndUpdate({ _id: req.params.id, authorId: req.session.uid }, req.body, { new: true }).populate("authorId", "name")
       if (data) {
         return res.send(data)
@@ -57,7 +57,7 @@ export default class CommentController {
 
   async delete(req, res, next) {
     try {
-      // console.log('delete blog ', req.params.id, req.session.uid, req.originalUrl, req.method)
+      // console.log('delete comment ', req.params.id, req.session.uid, req.originalUrl, req.method)
       let data = await _commentService.findOneAndDelete({ _id: req.params.id, authorId: req.session.uid })
       if (data) {
         return res.send("Deleted Blog")

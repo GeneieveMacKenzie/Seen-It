@@ -1,9 +1,10 @@
 import express from 'express'
 import PostService from '../services/PostService'
-// import CommentService from '../services/CommentService'
+import CommentService from '../services/CommentService'
 import { Authorize } from '../middleware/authorize.js'
 
 let _postService = new PostService().repository
+let _commentService = new CommentService().repository
 
 
 export default class PostController {
@@ -38,6 +39,17 @@ export default class PostController {
     try {
       // console.log('getById blog', req.params.id, req.session.uid, req.originalUrl, req.method)
       let data = await _postService.findById(req.params.id).populate("authorId", "name")
+      if (data) {
+        return res.send(data)
+      }
+      throw new Error("Invalid Id")
+    } catch (error) { next(error) }
+  }
+
+  async getCommentsByPostId(req, res, next) {
+    try {
+      // console.log('getById blog', req.params.id, req.session.uid, req.originalUrl, req.method)
+      let data = await _commentService.findById(req.params.id).populate("authorId", "name")
       if (data) {
         return res.send(data)
       }
