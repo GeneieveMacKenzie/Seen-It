@@ -36,8 +36,9 @@ server.use('/account', new AuthController().router)
 
 
 //YOUR ROUTES HERE!!!!!!
+import PostController from './controllers/PostController'
 
-
+server.use('/api/posts', new PostController().router)
 
 //Default Error Handler
 server.use((error, req, res, next) => {
