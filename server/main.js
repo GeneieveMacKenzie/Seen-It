@@ -37,8 +37,10 @@ server.use('/account', new AuthController().router)
 
 //YOUR ROUTES HERE!!!!!!
 import PostController from './controllers/PostController'
+import CommentController from './controllers/CommentController'
 
 server.use('/api/posts', new PostController().router)
+server.use('/api/comments', new CommentController().router)
 
 //Default Error Handler
 server.use((error, req, res, next) => {

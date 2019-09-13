@@ -16,7 +16,7 @@ export default class PostController {
       })
       .get('', this.getAll)
       .get('/:id', this.getById)
-      // .get('/:id/comments', this.getComments)
+      .get('/:id/comments', this.getCommentsByPostId)
       .use(Authorize.authenticated)
       .post('', this.create)
       .put('/:id', this.edit)
@@ -49,24 +49,13 @@ export default class PostController {
   async getCommentsByPostId(req, res, next) {
     try {
       // console.log('getById blog', req.params.id, req.session.uid, req.originalUrl, req.method)
-      let data = await _commentService.findById(req.params.id).populate("authorId", "name")
+      let data = await _commentService.find({ postId: req.params.id }).populate("authorId", "name")
       if (data) {
         return res.send(data)
       }
       throw new Error("Invalid Id")
     } catch (error) { next(error) }
   }
-
-  // async getComments(req, res, next) {
-  //   try {
-  //     // console.log('getComments blog', req.session.uid, req.originalUrl, req.method)
-  //     let data = await _commentService.find({ blogId: req.params.id }).populate("author", "name")
-  //     if (data) {
-  //       return res.send(data)
-  //     }
-  //     throw new Error("Invalid Id")
-  //   } catch (error) { next(error) }
-  // }
 
   async create(req, res, next) {
     try {
@@ -98,7 +87,7 @@ export default class PostController {
       // console.log('delete blog ', req.params.id, req.session.uid, req.originalUrl, req.method)
       let data = await _postService.findOneAndDelete({ _id: req.params.id, authorId: req.session.uid })
       if (data) {
-        return res.send("Deleted Blog")
+        return res.send("Deleted Post")
       }
       // console.log('delete ', req.params.id)
       throw new Error("Invalid Id")
