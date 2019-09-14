@@ -99,7 +99,7 @@ export default new Vuex.Store({
     },
     async getProfileComp({ commit, dispatch }, userId) {
       try {
-        let res = await _api.get('users/' + userId)
+        let res = await _api.get('users/' + userId + '/profile')
         commit('setProfileComp', res.data)
 
       } catch (error) {
