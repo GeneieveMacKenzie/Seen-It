@@ -12,7 +12,7 @@ export default class UserController {
             .get('/find', this.findUserByQuery)
             // .get('/:id/followers', this.getFollowers) //This is who is following id (you)
             // .get('/:id/following', this.getFollowing) //this is who you are following
-            // .get('/profile/:id', this.getById)
+            .get('/:id/profile', this.getById)
             .use(Authorize.authenticated)
         // .post('/following/:id', this.follow)
         // .delete('/:id/unfollow', this.unfollow)
