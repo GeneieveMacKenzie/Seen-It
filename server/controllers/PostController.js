@@ -11,7 +11,7 @@ export default class PostController {
   constructor() {
     this.router = express.Router()
       .use('', function (req, res, next) {
-        console.log('In Post: ', 'Request URL:', req.originalUrl, 'Request Type:', req.method, 'Request Author:', req.session.uid)
+        console.log('Request URL:', req.originalUrl, 'Request Type:', req.method, 'Request Author:', req.session.uid)
         next()
       })
       .get('', this.getAll)

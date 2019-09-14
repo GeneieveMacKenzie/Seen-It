@@ -24,6 +24,7 @@ export default class UserController {
             res.send(user)
         } catch (error) { next(error) }
     }
+
     async findUserByQuery(req, res, next) {
         try {
             let users = await _userService.find(req.query).select('name email')
@@ -58,8 +59,6 @@ export default class UserController {
             res.send(following)
         } catch (error) { next(error) }
     }
-
-
 }
 
 
