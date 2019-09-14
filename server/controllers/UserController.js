@@ -10,13 +10,12 @@ export default class UserController {
         this.router = express.Router()
             //NOTE This route will require a query param, the client will make a request to '/api/users/find?name=Larry'
             .get('/find', this.findUserByQuery)
-            .get('/:id/followers', this.getFollowers) //This is who is following id (you)
-            .get('/:id/following', this.getFollowing) //this is who you are following
-            .get('/:id', this.getById)
+            // .get('/:id/followers', this.getFollowers) //This is who is following id (you)
+            // .get('/:id/following', this.getFollowing) //this is who you are following
+            // .get('/profile/:id', this.getById)
             .use(Authorize.authenticated)
-            .post('/following/:id', this.follow)
-            .delete('/:id/unfollow', this.unfollow)
-
+        // .post('/following/:id', this.follow)
+        // .delete('/:id/unfollow', this.unfollow)
     }
 
     async getById(req, res, next) {
