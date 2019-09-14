@@ -13,11 +13,14 @@
           <div class="card-body">
             <h5 class="card-title">{{profile.name}}</h5>
             <p class="card-text">
-              {{posts}}
-              {{followers}}
-              {{following}}
+              posts: {{posts.length}}
+              followers: {{followers.length}}
+              following: {{following.length}}
             </p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <button
+              @click="toggleFollowing()"
+              class="btn btn-primary"
+            >{{amIFollowing ? "Un Follow" : "Follow"}}</button>
           </div>
         </div>
       </div>
@@ -39,6 +42,9 @@ export default {
     this.$store.dispatch("getProfileById", this.$route.params.id);
   },
   computed: {
+    me() {
+      return this.$store.state.user;
+    },
     profile() {
       return this.$store.state.profileComp;
     },
@@ -50,9 +56,23 @@ export default {
     },
     following() {
       return this.$store.state.following;
+    },
+    amIFollowing() {
+      let following = this.followers.find(f => f.follower._id == this.me._id);
+      return following ? true : false;
     }
   },
-  methods: {}
+  methods: {
+    toggleFollowing() {
+      if (this.amIFollowing) {
+        //unfollow
+        this.$store.dispatch("unfollowUser", this.profile._id);
+      } else {
+        //follow
+        this.$store.dispatch("followUser", this.profile._id);
+      }
+    }
+  }
 };
 </script>
 

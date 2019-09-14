@@ -3,8 +3,8 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.Types.ObjectId
 
 const _model = new Schema({
-  follower: { type: ObjectId, ref: "user", required: true },
-  following: { type: ObjectId, ref: "user", required: true }
+  follower: { type: ObjectId, ref: "User", required: true },
+  following: { type: ObjectId, ref: "User", required: true }
 
 }, { timestamps: true })
 

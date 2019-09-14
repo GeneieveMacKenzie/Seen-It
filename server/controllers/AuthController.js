@@ -10,8 +10,8 @@ export default class AuthController {
         this.router = express.Router()
             .post('/register', this.register)
             .post('/login', this.login)
-            .get('/authenticate', this.authenticate)
             .use(Authorize.authenticated)
+            .get('/authenticate', this.authenticate)
             .delete('/logout', this.logout)
             .use(this.defaultRoute)
     }

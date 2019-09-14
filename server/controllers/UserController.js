@@ -18,7 +18,7 @@ export default class UserController {
             .get('/:id/following', this.getFollowing) //this is who you are following
             .get('/:id/profile', this.getById)
             .use(Authorize.authenticated)
-            .post('/following/:id', this.follow)
+            .post('/:id/follow', this.follow)
             .delete('/:id/unfollow', this.unfollow)
     }
 
@@ -64,7 +64,7 @@ export default class UserController {
 
     async getFollowers(req, res, next) {
         try {
-            let following = await _userFollowingService.find({ following: req.params.id }).populate('followers', "name img")
+            let following = await _userFollowingService.find({ following: req.params.id }).populate('follower', "name img")
             res.send(following)
         } catch (error) { next(error) }
     }

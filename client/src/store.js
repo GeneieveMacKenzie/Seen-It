@@ -48,6 +48,20 @@ export default new Vuex.Store({
     },
     setUserSearchResults(state, users) {
       state.userSearchResults = users
+    },
+    addFollower(state, follower) {
+      follower.follower = {
+        _id: state.user._id,
+        name: state.user.name,
+        img: state.user.img
+      }
+      state.followers.push(follower)
+    },
+    removeFollower(state, follower) {
+      let i = state.followers.findIndex(f => f._id == follower._id)
+      if (i != -1) {
+        state.followers.splice(i, 1)
+      }
     }
   },
   actions: {
@@ -124,15 +138,21 @@ export default new Vuex.Store({
 
         commit('setFollowers', followersRequest.data)
         commit('setFollowing', followingRequest.data)
-
-
-
-
-
       } catch (error) {
         console.error(error)
       }
+    },
+
+    async followUser({ commit }, userToFollowId) {
+      let res = await _api.post(`users/${userToFollowId}/follow`)
+      commit('addFollower', res.data)
+    },
+    async unfollowUser({ commit }, userToUnFollowId) {
+      let res = await _api.delete(`users/${userToUnFollowId}/unfollow`)
+      commit('removeFollower', res.data)
     }
+
+
 
 
 
