@@ -1,6 +1,6 @@
 <template>
   <div class="profilecomp col-6 border rounded">
-    <h1>hello</h1>
+    <h1>{{}}</h1>
   </div>
 </template>
 
@@ -14,9 +14,9 @@
       return {}
     },
     computed: {
-      //   profileComp() {
-      //     return this.$store.state.profileComp;
-      //   },
+      profileComp() {
+        return this.$store.state.profileComp;
+      },
     },
     methods: {
       viewUserProfile() {

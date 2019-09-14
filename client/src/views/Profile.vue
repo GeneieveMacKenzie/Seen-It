@@ -3,7 +3,7 @@
     <div class="container">
       <div class="row">
 
-        <h1>User Profile</h1>
+        <h1>{{}}</h1>
 
 
       </div>
@@ -31,14 +31,13 @@
   export default {
     name: "profile",
     components: {
-      ProfileComp
+      ProfileComp,
     },
     data() {
       return {};
     },
     mounted() {
-
-      this.$store.dispatch("getProfileComp")
+      this.$store.dispatch("getProfileComp", this.$route.params.id)
     },
     computed: {
       profileComp() {
