@@ -27,32 +27,35 @@
 </template>
 
 <script>
-  import HomeComp from "@/components/HomeComp.vue";
-  import PersonalInfo from "@/components/PersonalInfo.vue";
+import HomeComp from "@/components/HomeComp.vue";
+import PersonalInfo from "@/components/PersonalInfo.vue";
 
-  export default {
-    name: "home",
-    components: {
-      HomeComp,
-      PersonalInfo
+export default {
+  name: "home",
+  components: {
+    HomeComp,
+    PersonalInfo
+  },
+  data() {
+    return {};
+  },
+  mounted() {
+    this.$store.dispatch("getHomeComp");
+    this.$store.dispatch("getPersonalInfo");
+  },
+  computed: {
+    homeComp() {
+      return this.$store.state.homeComp;
     },
-    data() {
-      return {};
+    user() {
+      return this.$store.state.user;
     },
-    mounted() {
-      this.$store.dispatch("getHomeComp");
-      // this.$store.dispatch("getPersonalInfo");
-    },
-    computed: {
-      homeComp() {
-        return this.$store.state.homeComp;
-      },
-      user() {
-        return this.$store.state.user;
-      }
-    },
-    methods: {}
-  };
+    follow() {
+      return this.$store.state.follow;
+    }
+  },
+  methods: {}
+};
 </script>
 
 <style>

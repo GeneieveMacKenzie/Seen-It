@@ -13,8 +13,9 @@
           <div class="card-body">
             <h5 class="card-title">{{profile.name}}</h5>
             <p class="card-text">
-              Some quick example text to build on the card title and make up the bulk of the card's
-              content.
+              {{posts}}
+              {{followers}}
+              {{following}}
             </p>
             <a href="#" class="btn btn-primary">Go somewhere</a>
           </div>
@@ -35,10 +36,20 @@ export default {
   },
   mounted() {
     this.$store.dispatch("getProfileComp", this.$route.params.id);
+    this.$store.dispatch("getProfileById", this.$route.params.id);
   },
   computed: {
     profile() {
       return this.$store.state.profileComp;
+    },
+    posts() {
+      return this.$store.state.posts;
+    },
+    followers() {
+      return this.$store.state.followers;
+    },
+    following() {
+      return this.$store.state.following;
     }
   },
   methods: {}

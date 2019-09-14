@@ -22,7 +22,9 @@ export default new Vuex.Store({
     homeComp: [],
     profileComp: {},
     posts: [],
-    userSearchResults: []
+    userSearchResults: [],
+    followers: [],
+    following: []
   },
   mutations: {
 
@@ -37,6 +39,12 @@ export default new Vuex.Store({
     },
     setPosts(state, posts) {
       state.posts = posts
+    },
+    setFollowers(state, followers) {
+      state.followers = followers
+    },
+    setFollowing(state, following) {
+      state.following = following
     },
     setUserSearchResults(state, users) {
       state.userSearchResults = users
@@ -106,14 +114,27 @@ export default new Vuex.Store({
 
       }
     },
-    async getProfileById({ commit, dispatch }, profileComp) {
+    async getProfileById({ commit, dispatch }, userId) {
       try {
-        let res = await _api.get(`/posts/${profileComp.authorId._id}`)
-        commit('setProfileComp', res.data)
+        let postsRequest = await _api.get(`/users/${userId}/posts`)
+        commit('setPosts', postsRequest.data)
+
+        let followersRequest = await _api.get(`users/${userId}/followers`)
+        let followingRequest = await _api.get(`users/${userId}/following`)
+
+        commit('setFollowers', followersRequest.data)
+        commit('setFollowing', followingRequest.data)
+
+
+
+
+
       } catch (error) {
         console.error(error)
       }
     }
+
+
 
     //#endregion
 

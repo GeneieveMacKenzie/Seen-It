@@ -1,22 +1,25 @@
 import express from 'express'
 import UserService from '../services/UserService';
 import { Authorize } from '../middleware/authorize'
-import _userFollowingService from '../services/UserFollowing'
+import UserFollowingService from '../services/UserFollowing'
+import PostService from '../services/PostService';
 
 let _userService = new UserService().repository
-
+let _userFollowingService = new UserFollowingService().repository
+let _postService = new PostService().repository
 //PUBLIC
 export default class UserController {
     constructor() {
         this.router = express.Router()
             //NOTE This route will require a query param, the client will make a request to '/api/users/find?name=Larry'
             .get('/find', this.findUserByQuery)
-            // .get('/:id/followers', this.getFollowers) //This is who is following id (you)
-            // .get('/:id/following', this.getFollowing) //this is who you are following
+            .get('/:id/posts', this.getAllPostsByUser) //This is who is following id (you)
+            .get('/:id/followers', this.getFollowers) //This is who is following id (you)
+            .get('/:id/following', this.getFollowing) //this is who you are following
             .get('/:id/profile', this.getById)
             .use(Authorize.authenticated)
-        // .post('/following/:id', this.follow)
-        // .delete('/:id/unfollow', this.unfollow)
+            .post('/following/:id', this.follow)
+            .delete('/:id/unfollow', this.unfollow)
     }
 
     async getById(req, res, next) {
@@ -33,6 +36,18 @@ export default class UserController {
         } catch (error) { next(error) }
     }
 
+    async getAllPostsByUser(req, res, next) {
+        try {
+            // console.log('getAll blog', req.session.uid, req.originalUrl, req.method)
+            let data = await _postService.find({ authorId: req.params.id }).populate("authorId", "name")
+            if (data) {
+                return res.send(data)
+            }
+            throw new Error("Failed to get Data!")
+        } catch (error) { next(error) }
+
+    }
+
     async follow(req, res, next) {
         try {
             let following = await _userFollowingService.create({ follower: req.session.uid, following: req.params.id })
@@ -42,14 +57,14 @@ export default class UserController {
 
     async getFollowing(req, res, next) {
         try {
-            let following = await _userFollowingService.find({ follower: req.params.id }).populate('following', "name")
+            let following = await _userFollowingService.find({ follower: req.params.id }).populate('following', "name img")
             res.send(following)
         } catch (error) { next(error) }
     }
 
     async getFollowers(req, res, next) {
         try {
-            let following = await _userFollowingService.find({ following: req.params.id }).populate('followers', "name")
+            let following = await _userFollowingService.find({ following: req.params.id }).populate('followers', "name img")
             res.send(following)
         } catch (error) { next(error) }
     }

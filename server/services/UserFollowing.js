@@ -10,6 +10,6 @@ const _model = new Schema({
 
 export default class UserFollowingService {
   get repository() {
-    return mongoose.model('userFollowing', _model)
+    return mongoose.model('follow', _model)
   }
 }
