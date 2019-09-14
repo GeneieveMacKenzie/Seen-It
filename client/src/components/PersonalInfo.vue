@@ -1,9 +1,6 @@
 <template>
   <div class="personal-info">
-    <img
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkn0wxT8chcHq4SD_RHbcOe_o2slPsbzdxpGsFaKS4rI6nhCfe"
-      class="img-fluid"
-    />
+    <img class="img-fluid" :src="user.img" alt />
     <h1>{{user.name}}</h1>
   </div>
 </template>

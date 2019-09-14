@@ -10,8 +10,9 @@ const _model = new Schema({
   movie_id: { type: String, required: true }, // this is the movie id
   post_title: { type: String, required: true },
   authorId: { type: ObjectId, ref: "User", required: true },
-  body: { type: String, required: true }
-  //NOTE will eventually need movie id from api
+  body: { type: String, required: true },
+  like_count: { type: Number, default: 0 }
+
 }, { timestamps: true })
 
 export default class PostService {

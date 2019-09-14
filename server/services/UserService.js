@@ -11,6 +11,7 @@ let _schema = new Schema({
   name: { type: String, required: true },
   //every email must be unique on the database
   email: { type: String, required: true, unique: true },
+  img: { type: String, default: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSkn0wxT8chcHq4SD_RHbcOe_o2slPsbzdxpGsFaKS4rI6nhCfe" },
   hash: { type: String, required: true }
 }, { timestamps: true })
 
@@ -32,9 +33,9 @@ _schema.statics.generateHash = function (password) {
 }
 
 export default class UserService {
-    get repository() {
-        return mongoose.model('User', _schema)
-    }
+  get repository() {
+    return mongoose.model('User', _schema)
+  }
 }
 
 
