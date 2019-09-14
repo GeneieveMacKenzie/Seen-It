@@ -1,6 +1,7 @@
 <template>
   <div class="homecomp col-6 border rounded">
-    <router-link to="/profile" class='userProfile'>{{homeCompProp.authorId.name}}</router-link>
+    <router-link :to="{name:'profile', params:{id: homeCompProp.authorId._id}}" class='userProfile'>
+      {{homeCompProp.authorId.name}}</router-link>
     <h2>{{homeCompProp.title}}</h2>
     <h4>{{homeCompProp.body}}</h4>
   </div>
@@ -16,9 +17,9 @@
       return {}
     },
     computed: {
-      //   homeComp() {
-      //     return this.$store.state.homeComp;
-      //   },
+      homeComp() {
+        return this.$store.state.homeComp;//userProfile
+      },
     },
     methods: {
       viewUserProfile() {
