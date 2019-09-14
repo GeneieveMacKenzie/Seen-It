@@ -1,8 +1,9 @@
 import express from 'express'
-import _userService from '../services/UserService';
+import UserService from '../services/UserService';
 import { Authorize } from '../middleware/authorize'
 import _userFollowingService from '../services/UserFollowing'
 
+let _userService = new UserService().repository
 
 //PUBLIC
 export default class UserController {

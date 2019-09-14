@@ -38,10 +38,11 @@ server.use('/account', new AuthController().router)
 //YOUR ROUTES HERE!!!!!!
 import PostController from './controllers/PostController'
 import CommentController from './controllers/CommentController'
+import UserController from './controllers/UserController'
 
 server.use('/api/posts', new PostController().router)
 server.use('/api/comments', new CommentController().router)
-
+server.use('/api/users', new UserController().router)
 //Default Error Handler
 server.use((error, req, res, next) => {
   res.status(error.status || 400).send({ error: { message: error.message } })
