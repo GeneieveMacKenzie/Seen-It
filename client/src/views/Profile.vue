@@ -3,8 +3,7 @@
     <div class="container">
       <div class="row">
 
-        <h1>{{}}</h1>
-
+        <h1>pull to save the day</h1>
 
       </div>
       <div class="row">
